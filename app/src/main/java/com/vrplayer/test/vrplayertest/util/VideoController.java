@@ -77,39 +77,35 @@ public class VideoController implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
-            case R.id.video_tool_imgFullscreen:// 是否全屏播放
-                if (player != null)
-                {
-                    player.toFullScreen();
+        int i = v.getId();
+        if (i == R.id.video_tool_imgFullscreen) {
+            if (player != null) {
+                player.toFullScreen();
+            }
+
+        } else if (i == R.id.video_tool_tbtnGyro) {
+            if (player != null) {
+                player.setGyroEnabled(!player.isGyroEnabled());
+                tbtnGyro.setChecked(player.isGyroEnabled());
+            }
+
+        } else if (i == R.id.video_tool_tbtnVR) {
+            if (player != null) {
+                boolean isScreen = !player.isDualScreenEnabled();
+                player.setDualScreenEnabled(isScreen);
+                if (isScreen) {
+                    player.setGyroEnabled(true);
+                    tbtnGyro.setChecked(true);
                 }
-                break;
-            case R.id.video_tool_tbtnGyro:    // 陀螺仪
-                if (player != null) {
-                    player.setGyroEnabled(!player.isGyroEnabled());
-                    tbtnGyro.setChecked(player.isGyroEnabled());
-                }
-                break;
-            case R.id.video_tool_tbtnVR:  // 单双屏
-                if (player != null)
-                {
-                    boolean isScreen = !player.isDualScreenEnabled();
-                    player.setDualScreenEnabled(isScreen);
-                    if (isScreen)
-                    {
-                        player.setGyroEnabled(true);
-                        tbtnGyro.setChecked(true);
-                    }
-                }
-                break;
-            case R.id.video_tool_tbtnPlayPause:// 播放/暂停
-                if (((ToggleButton) v).isChecked()) {
-                    player.pause();
-                } else {
-                    player.play();
-                }
-                break;
+            }
+
+        } else if (i == R.id.video_tool_tbtnPlayPause) {
+            if (((ToggleButton) v).isChecked()) {
+                player.pause();
+            } else {
+                player.play();
+            }
+
         }
     }
 

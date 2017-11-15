@@ -45,44 +45,43 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View curview) {
         Log.i(TAG,"onClick");
-        switch (curview.getId()) {
-            case  R.id.vr_play:
-                Intent mIntent = new Intent(this,VRPlayerActivity.class);
-                mIntent.setData(Uri.parse("http://192.168.20.177/openvod/yxtest/test.m3u8"));
-                startActivity(mIntent);
-                break;
-            case R.id.vr_control:
-                Toast.makeText(getApplication(),"vr_control",Toast.LENGTH_LONG);
-                LogManager.i(TAG,"vr_control");
-                sendSocket = new SendSocket();
-                sendSocket.setmSendSocketListener(new SendSocketListener(){
+        int i = curview.getId();
+        if (i == R.id.vr_play) {
+            Intent mIntent = new Intent(this, VRPlayerActivity.class);
+            mIntent.setData(Uri.parse("http://192.168.20.177/openvod/yxtest/test.m3u8"));
+            startActivity(mIntent);
 
-                    @Override
-                    public void onSend(float distanceX, float distanceY) {
-                        BasedParcelable touchMsg = new TouchMsgParcelable(distanceX,distanceY);
-                        sendSocket.sendMsg(touchMsg);
-                    }
+        } else if (i == R.id.vr_control) {
+            Toast.makeText(getApplication(), "vr_control", Toast.LENGTH_LONG);
+            LogManager.i(TAG, "vr_control");
+            sendSocket = new SendSocket();
+            sendSocket.setmSendSocketListener(new SendSocketListener() {
 
-                    @Override
-                    public void onSendEvent(SensorEvent mSensorEvent, int rotation) {
+                @Override
+                public void onSend(float distanceX, float distanceY) {
+                    BasedParcelable touchMsg = new TouchMsgParcelable(distanceX, distanceY);
+                    sendSocket.sendMsg(touchMsg);
+                }
 
-                    }
-                });
-                mgesturelistener = new gesturelistener(this);
-                mgesturelistener.setmSendSocketListener(sendSocket.getmSendSocketListener());
-                view.requestFocus();
-                view.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        LogManager.i(TAG,motionEvent.toString());
-                        mgesturelistener.handleTouchEvent(motionEvent);
-                        return true;
-                    }
-                });
+                @Override
+                public void onSendEvent(SensorEvent mSensorEvent, int rotation) {
 
-                break;
-            default:
-                break;
+                }
+            });
+            mgesturelistener = new gesturelistener(this);
+            mgesturelistener.setmSendSocketListener(sendSocket.getmSendSocketListener());
+            view.requestFocus();
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    LogManager.i(TAG, motionEvent.toString());
+                    mgesturelistener.handleTouchEvent(motionEvent);
+                    return true;
+                }
+            });
+
+
+        } else {
         }
     }
 
