@@ -25,11 +25,7 @@
          <TextView
              android:id="@+id/hotspot_point2"
              android:text="+"
-             android:textColor="@android:color/white"
-             android:gravity="center"
-             android:layout_weight="1"
-             android:layout_width="0dp"
-             android:layout_height="match_parent" />
+             style="@style/test" />
       </LinearLayout>
 
       <android.opengl.GLSurfaceView

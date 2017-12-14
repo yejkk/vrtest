@@ -58,7 +58,8 @@ public class MD360Program {
     }
 
     protected String getVertexShader(Context context){
-        return readTextFileFromRaw(context, R.raw.per_pixel_vertex_shader);
+//        return readTextFileFromRaw(context, R.raw.per_pixel_vertex_shader);
+        return readTextFileFromRaw(context, context.getResources().getIdentifier("per_pixel_vertex_shader","raw","com.clearcrane.vod"));
     }
 
     protected String getFragmentShader(Context context){
@@ -107,17 +108,21 @@ public class MD360Program {
             int resId;
             switch (type){
                 case MDVRLibrary.ContentType.BITMAP:
-                    resId = R.raw.per_pixel_fragment_shader_bitmap;
+//                    resId = R.raw.per_pixel_fragment_shader_bitmap;
+                    resId = context.getResources().getIdentifier("per_pixel_fragment_shader_bitmap","raw","com.clearcrane.vod");
                     break;
                 case MDVRLibrary.ContentType.FBO:
-                    resId = R.raw.per_pixel_fragment_shader_bitmap_fbo;
+//                    resId = R.raw.per_pixel_fragment_shader_bitmap_fbo;
+                    resId = context.getResources().getIdentifier("per_pixel_fragment_shader_bitmap_fbo","raw","com.clearcrane.vod");
                     break;
                 case MDVRLibrary.ContentType.CUBEMAP:
-                    resId = R.raw.per_pixel_fragment_shader_cubemap;
+//                    resId = R.raw.per_pixel_fragment_shader_cubemap;
+                    resId = context.getResources().getIdentifier("per_pixel_fragment_shader_cubemap","raw","com.clearcrane.vod");
                     break;
                 case MDVRLibrary.ContentType.VIDEO:
                 default:
-                    resId = R.raw.per_pixel_fragment_shader;
+//                    resId = R.raw.per_pixel_fragment_shader;
+                    resId = context.getResources().getIdentifier("per_pixel_fragment_shader","raw","com.clearcrane.vod");
                     break;
             }
             return readTextFileFromRaw(context, resId);

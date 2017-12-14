@@ -117,6 +117,7 @@ public class MotionStrategy extends AbsInteractiveStrategy implements SensorEven
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
+        Log.i("sensoreventyx","accuracy:"+event.accuracy+" values:"+event.values.toString());
         if (isOn && event.accuracy != 0){
             if (getParams().mSensorListener != null){
                 getParams().mSensorListener.onSensorChanged(event);
