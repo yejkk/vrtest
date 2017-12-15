@@ -57,6 +57,10 @@ public class InteractiveModeManager extends ModeManager<AbsInteractiveStrategy> 
                 return new CardboardMotionStrategy(mParams);
             case MDVRLibrary.INTERACTIVE_MODE_CARDBORAD_MOTION_WITH_TOUCH:
                 return new CardboardMTStrategy(mParams);
+            case MDVRLibrary.INTERACTIVE_MODE_KEYDOWN:
+                return new KeyStrategy(mParams);
+            case MDVRLibrary.INTERACTIVE_MODE_MOBILECONTROL:
+                return new MobileMotionStrategy(mParams);
             case MDVRLibrary.INTERACTIVE_MODE_TOUCH:
             default:
                 return new TouchStrategy(mParams);

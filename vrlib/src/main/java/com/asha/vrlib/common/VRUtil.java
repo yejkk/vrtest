@@ -65,6 +65,45 @@ public class VRUtil {
         Matrix.rotateM(output, 0, 90.0F, 1.0F, 0.0F, 0.0F);
     }
 
+    public static void sensorRotationVector2Matrix(float []values, int rotation, float[] output) {
+        if (!sIsTruncated) {
+            try {
+                SensorManager.getRotationMatrixFromVector(sUIThreadTmp, values);
+            } catch (Exception e) {
+                // On some Samsung devices, SensorManager#getRotationMatrixFromVector throws an exception
+                // if the rotation vector has more than 4 elements. Since only the four first elements are used,
+                // we can truncate the vector without losing precision.
+                Log.e(TAG, "maybe Samsung bug, will truncate vector");
+                sIsTruncated = true;
+            }
+        }
+
+        if (sIsTruncated){
+            System.arraycopy(values, 0, sTruncatedVector, 0, 4);
+            SensorManager.getRotationMatrixFromVector(sUIThreadTmp, sTruncatedVector);
+        }
+
+
+        switch (rotation){
+            case Surface.ROTATION_0:
+                SensorManager.getRotationMatrixFromVector(output, values);
+                break;
+            case Surface.ROTATION_90:
+                SensorManager.getRotationMatrixFromVector(sUIThreadTmp, values);
+                SensorManager.remapCoordinateSystem(sUIThreadTmp, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, output);
+                break;
+            case Surface.ROTATION_180:
+                SensorManager.getRotationMatrixFromVector(sUIThreadTmp, values);
+                SensorManager.remapCoordinateSystem(sUIThreadTmp, SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Y, output);
+                break;
+            case Surface.ROTATION_270:
+                SensorManager.getRotationMatrixFromVector(sUIThreadTmp, values);
+                SensorManager.remapCoordinateSystem(sUIThreadTmp, SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X, output);
+                break;
+        }
+        Matrix.rotateM(output, 0, 90.0F, 1.0F, 0.0F, 0.0F);
+    }
+
     public static void notNull(Object object, String error){
         if (object == null) {
             throw new RuntimeException(error);

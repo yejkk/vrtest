@@ -58,6 +58,8 @@ public class MDVRLibrary {
     public static final int INTERACTIVE_MODE_MOTION_WITH_TOUCH = 3;
     public static final int INTERACTIVE_MODE_CARDBORAD_MOTION = 4;
     public static final int INTERACTIVE_MODE_CARDBORAD_MOTION_WITH_TOUCH = 5;
+    public static final int INTERACTIVE_MODE_KEYDOWN = 8;
+    public static final int INTERACTIVE_MODE_MOBILECONTROL = 9;
 
     // display mode
     public static final int DISPLAY_MODE_NORMAL = 101;
