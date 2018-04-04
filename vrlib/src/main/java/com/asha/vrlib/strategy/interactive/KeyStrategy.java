@@ -2,6 +2,7 @@ package com.asha.vrlib.strategy.interactive;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.asha.vrlib.MD360Director;
 
@@ -49,8 +50,12 @@ public class KeyStrategy extends AbsInteractiveStrategy {
     @Override
     public boolean handleDrag(int distanceX, int distanceY) {
         for (MD360Director director : getDirectorList()){
+            Log.i("orientationX",""+director.getDeltaX());
+            Log.i("orientationY",""+director.getDeltaY());
             director.setDeltaX(director.getDeltaX() - distanceX / sDensity * sDamping);
             director.setDeltaY(director.getDeltaY() - distanceY / sDensity * sDamping);
+            Log.i("orientationX",""+director.getDeltaX());
+            Log.i("orientationY",""+director.getDeltaY());
         }
         return false;
     }

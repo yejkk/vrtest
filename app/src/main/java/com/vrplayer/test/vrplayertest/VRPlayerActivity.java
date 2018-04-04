@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.asha.vrlib.MDVRLibrary;
+import com.asha.vrlib.common.VrSenorEvent;
 import com.asha.vrlib.strategy.interactive.AbsInteractiveStrategy;
 import com.asha.vrlib.strategy.interactive.InteractiveModeManager;
+import com.clearcrane.vod.R;
 import com.vrplayer.test.vrplayertest.MDVRPlayer.BasePlayerActivity;
 import com.vrplayer.test.vrplayertest.MDVRPlayer.MediaPlayerWrapper;
 import com.vrplayer.test.vrplayertest.gesture.KeyStrategy;
@@ -89,7 +91,7 @@ public class VRPlayerActivity extends BasePlayerActivity{
                     public void onSurfaceReady(Surface surface) {
                         mMediaPlayerWrapper.setSurface(surface);
                     }
-                })
+                }).interactiveMode(MDVRLibrary.INTERACTIVE_MODE_MOTION_WITH_TOUCH)
                 .build(findViewById(R.id.gl_view));
         mMRLibControl = MRLibControl.with(this).setMDVRLibrary(mMDVRLibrary).build();
 
@@ -150,6 +152,12 @@ public class VRPlayerActivity extends BasePlayerActivity{
             return (handlerKeyEvent()&&mStrategy.isSupport(this) );
         }else {
             return true;
+        }
+    }
+
+    public void receive(VrSenorEvent vrSenorEvent){
+        if(mMRLibControl == null ) {
+            mMRLibControl.getmMDVRLibrary().switchInteractiveMode(VRPlayerActivity.this, MDVRLibrary.INTERACTIVE_MODE_MOBILECONTROL);
         }
     }
 

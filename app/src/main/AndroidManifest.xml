@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vrplayer.test.vrplayertest">
+    package="com.clearcrane.vod">
+    <!--package="com.vrplayer.test.vrplayertest">-->
     <!-- 使用opengles 2.0 -->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -16,14 +17,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.vrplayer.test.vrplayertest.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VRPlayerActivity" />
+        <activity android:name="com.vrplayer.test.vrplayertest.VRPlayerActivity" />
+        <receiver
+            android:name="com.vrplayer.test.vrplayertest.service.ControllerReceiver"
+            android:permission="com.cleartv.controller.permission.OPENVOD">
+            <intent-filter>
+                <action android:name="com.clearcrane.vod.CONTROLLER" />
+                <action android:name="com.cleartv.controller.CONTROLLER" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

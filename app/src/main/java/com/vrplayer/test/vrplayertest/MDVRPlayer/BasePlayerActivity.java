@@ -26,10 +26,10 @@ import com.asha.vrlib.model.position.MDMutablePosition;
 import com.asha.vrlib.plugins.MDAbsPlugin;
 import com.asha.vrlib.plugins.hotspot.IMDHotspot;
 import com.asha.vrlib.texture.MD360BitmapTexture;
+import com.clearcrane.vod.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.vrplayer.test.vrplayertest.MDVRPlayer.setting.CustomProjectionFactory;
-import com.vrplayer.test.vrplayertest.R;
 import com.vrplayer.test.vrplayertest.VRPlayerActivity;
 
 import java.io.FileNotFoundException;

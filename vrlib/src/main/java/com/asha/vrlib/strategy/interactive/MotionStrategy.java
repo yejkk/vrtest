@@ -34,6 +34,10 @@ public class MotionStrategy extends AbsInteractiveStrategy implements SensorEven
 
     private boolean isOn;
 
+    private float orientationX ;
+    private float orientationY ;
+    private float orientationZ ;
+
     public MotionStrategy(InteractiveModeManager.Params params) {
         super(params);
     }
@@ -135,9 +139,31 @@ public class MotionStrategy extends AbsInteractiveStrategy implements SensorEven
                     }
                     getParams().glHandler.post(updateSensorRunnable);
                     break;
+                case Sensor.TYPE_ORIENTATION:
+                    // post
+                    orientationX = event.values[2];
+                    orientationY = event.values[0];
+                    orientationZ = event.values[2];
+                    getParams().glHandler.post(updateOrientationSensorRunnable);
+                    break;
             }
         }
     }
+
+    private Runnable updateOrientationSensorRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!mRegistered || !isOn) return;
+            // mTmpMatrix will be used in multi thread.
+            synchronized (mMatrixLock){
+                for (MD360Director director : getDirectorList()){
+                    director.setDeltaX( orientationX);
+                    director.setDeltaY(orientationY );
+                    director.setDeltaZ(orientationZ );
+                }
+            }
+        }
+    };
 
     private Runnable updateSensorRunnable = new Runnable() {
         @Override

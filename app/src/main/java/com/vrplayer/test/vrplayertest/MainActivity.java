@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.clearcrane.vod.R;
 import com.vrplayer.test.vrplayertest.gesture.gesturelistener;
 import com.vrplayer.test.vrplayertest.socket.BasedParcelable;
 import com.vrplayer.test.vrplayertest.socket.SendSocket;
@@ -48,7 +49,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int i = curview.getId();
         if (i == R.id.vr_play) {
             Intent mIntent = new Intent(this, VRPlayerActivity.class);
-            mIntent.setData(Uri.parse("http://192.168.20.177/openvod/yxtest/test.m3u8"));
+            mIntent.setData(Uri.parse("http://mres.cleartv.cn/default/26794630b04f565641b4c9576677fa61_151391133113.mp4"));
             startActivity(mIntent);
 
         } else if (i == R.id.vr_control) {

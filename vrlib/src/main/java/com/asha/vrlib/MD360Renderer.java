@@ -74,6 +74,9 @@ public class MD360Renderer implements GLSurfaceView.Renderer {
 		mGLHandler.dealMessage();
 	}
 
+	/**
+	 * 每隔16ms调用一次
+	 */
 	@Override
 	public void onDrawFrame(GL10 glUnused){
 		// gl thread
@@ -81,7 +84,7 @@ public class MD360Renderer implements GLSurfaceView.Renderer {
 		// 热点拾取
 		mGLHandler.dealMessage();
 
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);//清空缓存
 		glCheck("MD360Renderer onDrawFrame begin. ");
 
 		int size = mDisplayModeManager.getVisibleSize();
@@ -112,8 +115,8 @@ public class MD360Renderer implements GLSurfaceView.Renderer {
 
 			MD360Director director = directors.get(i);
 			GLES20.glViewport(width * i, 0, width, height);
-			GLES20.glEnable(GLES20.GL_SCISSOR_TEST);
-			GLES20.glScissor(width * i, 0, width, height);
+			GLES20.glEnable(GLES20.GL_SCISSOR_TEST);//启用图片剪切
+			GLES20.glScissor(width * i, 0, width, height);//定义裁剪窗口
 
 			if (mainPlugin != null){
 				mainPlugin.renderer(i, width, height, director);
@@ -123,7 +126,7 @@ public class MD360Renderer implements GLSurfaceView.Renderer {
 				plugin.renderer(i, width, height, director);
 			}
 
-			GLES20.glDisable(GLES20.GL_SCISSOR_TEST);
+			GLES20.glDisable(GLES20.GL_SCISSOR_TEST);//close图片剪切
 		}
 
 		mMainLinePipe.commit(mWidth, mHeight, size);

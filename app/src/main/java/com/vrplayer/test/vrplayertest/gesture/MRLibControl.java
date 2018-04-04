@@ -13,6 +13,10 @@ public class MRLibControl {
 
     private MDVRLibrary mMDVRLibrary;
 
+    public MDVRLibrary getmMDVRLibrary() {
+        return mMDVRLibrary;
+    }
+
     public static Builder with(Context context){
         return new Builder(context);
     }

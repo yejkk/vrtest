@@ -10,7 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.vrplayer.test.vrplayertest.R;
+import com.clearcrane.vod.R;
+
 
 /**
  * Created by userd on 2017/9/12.

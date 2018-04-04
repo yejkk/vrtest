@@ -140,6 +140,68 @@ public class VRUtil {
         }
     }
 
+    public static void getBaseRotationMatrix(float[] rotationMatrix ,float alpha ,float beta ,float gamma ,int rotation ) {
+        double radX = (beta * Math.PI /180);
+        double radY = (gamma * Math.PI /180);
+        double radZ = (alpha * Math.PI /180);
+        double cX = Math.cos(radX);
+        double cY = Math.cos(radY);
+        double cZ = Math.cos(radZ);
+        double sX = Math.sin(radX);
+        double sY = Math.sin(radY);
+        double sZ = Math.sin(radZ);
+        sUIThreadTmp[0] = (float) (cZ *cY -sZ *sX *sY);
+//        rotationMatrix[0] = 0;
+//        rotationMatrix[1] = 0;
+        sUIThreadTmp[1] = (float) (-cX *sZ);
+        sUIThreadTmp[2] = (float) (cY *sZ *sX +cZ *sY);
+        sUIThreadTmp[3] = 0.0f;
+//        rotationMatrix[4] = 0;
+        sUIThreadTmp[4] = (float) (cY *sZ +cZ *sX *sY);
+        sUIThreadTmp[5] = (float) (cZ *cX);
+        sUIThreadTmp[6] = (float) (sZ *sY -cZ *cY *sX);
+        sUIThreadTmp[7] = 0.0f;
+        sUIThreadTmp[8] = (float) (-cX *sY);
+        sUIThreadTmp[9] = (float) sX;
+        sUIThreadTmp[10] = (float) (cX *cY);
+        sUIThreadTmp[11] = 0.0f;
+        sUIThreadTmp[12] = 0.0f;
+        sUIThreadTmp[13] = 0.0f;
+        sUIThreadTmp[14] = 0.0f;
+        sUIThreadTmp[15] = 1.0f;
+        switch (rotation){
+            case Surface.ROTATION_0:
+                System.arraycopy(sUIThreadTmp, 0, rotationMatrix, 0, 16);
+                break;
+            case Surface.ROTATION_90:
+                SensorManager.remapCoordinateSystem(sUIThreadTmp, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, rotationMatrix);
+                break;
+            case Surface.ROTATION_180:
+                SensorManager.remapCoordinateSystem(sUIThreadTmp, SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Y, rotationMatrix);
+                break;
+            case Surface.ROTATION_270:
+                SensorManager.remapCoordinateSystem(sUIThreadTmp, SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X, rotationMatrix);
+                break;
+        }
+//        Matrix.rotateM(rotationMatrix, 0, 90.0F, 1.0F, 0.0F, 0.0F);
+    }
+
+    public static void getBaseQuaternion(float[] quaternion ,float alpha ,float beta ,float gamma ) {
+        double radX = (beta * Math.PI /180);
+        double radY = (gamma * Math.PI /180);
+        double radZ = (alpha * Math.PI /180);
+        double cX = Math.cos(radX/2);
+        double cY = Math.cos(radY/2);
+        double cZ = Math.cos(radZ/2);
+        double sX = Math.sin(radX/2);
+        double sY = Math.sin(radY/2);
+        double sZ = Math.sin(radZ/2);
+        quaternion[0] = (float)(cX *cY *cZ -sX *sY *sZ) ;
+        quaternion[1] = (float)(sX *cY *cZ -cX *sY *sZ) ;
+        quaternion[2] = (float)(cX *sY *cZ +sX *cY *sZ) ;
+        quaternion[3] = (float)(cX *cY *sZ +sX *sY *cZ) ;
+    }
+
     public static void barrelDistortion(double paramA, double paramB, double paramC, PointF src){
 
         double paramD = 1.0 - paramA - paramB - paramC; // describes the linear scaling of the image

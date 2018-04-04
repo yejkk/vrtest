@@ -4,11 +4,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.widget.ImageView;
 
-//import com.utovr.player.UVEventListener;
-import com.vrplayer.test.vrplayertest.R;
+import com.clearcrane.vod.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+//import com.utovr.player.UVEventListener;
 
 /**
  * Created by userd on 2017/9/12.

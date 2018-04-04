@@ -40,6 +40,9 @@ public class MD360Director {
 
     private float mDeltaX;
     private float mDeltaY;
+    private float mDeltaZ;
+
+    private int matrixType = 0;
 
     private boolean mWorldRotationMatrixInvalidate = true;
 
@@ -63,6 +66,15 @@ public class MD360Director {
 
     public void setDeltaX(float mDeltaX) {
         this.mDeltaX = mDeltaX;
+        mWorldRotationMatrixInvalidate = true;
+    }
+
+    public float getDeltaZ() {
+        return mDeltaZ;
+    }
+
+    public void setDeltaZ(float mDeltaZ) {
+        this.mDeltaZ = mDeltaZ;
         mWorldRotationMatrixInvalidate = true;
     }
 
@@ -127,6 +139,13 @@ public class MD360Director {
             return;
         }
 
+       /* if(1 == matrixType){
+            mViewQuaternion.fromMatrix(mViewMatrix);
+            float pitch = mViewQuaternion.getPitch();
+            float yaw = mViewQuaternion.getYaw();
+            float roll = mViewQuaternion.getRoll();
+            VRUtil.getBaseRotationMatrix(mViewMatrix,roll,pitch,0,Surface.ROTATION_0);
+        }*/
         mViewQuaternion.fromMatrix(mViewMatrix);
         float pitch = mViewQuaternion.getPitch();
         float yaw = mViewQuaternion.getYaw();
@@ -239,6 +258,20 @@ public class MD360Director {
             return;
         }
 
+        System.arraycopy(sensorMatrix, 0, mSensorMatrix, 0, 16);
+        mWorldRotationMatrixInvalidate = true;
+    }
+
+    // call in gl thread
+    public void updateJsMatrix(float[] sensorMatrix,int matrixType) {
+        if (sensorMatrix == null
+                || sensorMatrix.length != 16
+                || Float.isNaN(sensorMatrix[0])
+                || Float.isNaN(sensorMatrix[1])) {
+            return;
+        }
+
+        this.matrixType = matrixType;
         System.arraycopy(sensorMatrix, 0, mSensorMatrix, 0, 16);
         mWorldRotationMatrixInvalidate = true;
     }
